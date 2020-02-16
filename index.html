@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dad Scene It?</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+</head>
+
+<body onload="squareHeight()" onresize="squareHeight()">
+  <header>
+    <h1>Welcome to the HTML Chessboard</h1>
+  </header>
+
+  <div class="chessboard-container">
+    <div class="chessboard"></div>
+  </div>
+
+  <div class="information">
+    <h2>Climb & Chutes</h2>
+    <p>Players roll the dice and move the number of squares. If you land on a question square you have to answer the question correctly to stay. If not you go back to the square you came from</p>
+    <form onsubmit="event.preventDefault();">
+      <input type="number" name="players" value="2" min="2" max="4" step="any" onchange="playerCount = parseInt(this.value); playerList(playerCount);">
+    </form>
+
+    <div class="playerList">
+      <p class="playerPiece player1">Player 1</p>
+      <p class="playerPiece player2">Player 2</p>
+      <p class="playerPiece player3 hidden">Player 3</p>
+      <p class="playerPiece player4 hidden">Player 4</p>
+    </div>
+
+    <div id="playGame">
+      <h1>Player 1's Turn</h1>
+      <button type="button" onclick="rollDice(1);">Roll Dice</button>
+      <p class="yourNumber hidden">Your Number: </p>
+    </div>
+
+    <div id="correct" class="hidden" style="padding: 1rem 0.5rem;">
+      Your answer was:
+    </div>
+  </div>
+
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <h1>Category: </h1>
+      <h2>Question: </h2>
+
+      <button type="button" id="revealAnswer" onclick="$('.revealAnswer').removeClass('hidden')">Reveal Answer</button>
+
+      <div class="revealAnswer hidden">
+        <p>Answer: </p>
+        <form onsubmit="event.preventDefault();">
+          <button type="button" id="correctAnswer">CORRECT</button>
+          <button type="button" id="incorrectAnswer">INCORRECT</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="./scripts/modal.js"></script>
+  <script src="./scripts/buildChessboard.js"></script>
+  <script src="./scripts/questions.js"></script>
+  <script>
+    var container = $(".chessboard"),
+      newSpaceObject,
+      playerLimit = 2,
+      playerPositions = [1, 1],
+      questionsLength = 0,
+      questionsAsked = [];
+    for (let i = 1; i <= 7; i++) {
+      let categoryNumber = `Category ${i}`,
+        category = questions[categoryNumber],
+        length = category.length;
+      questionsLength += length;
+    }
+
+    $("#correctAnswer").on("click", () => {
+      checkAnswer(true, player, oldSpace, newSpace);
+    });
+    $("#incorrectAnswer").on("click", () => {
+      checkAnswer(false, player, oldSpace, newSpace);
+    });
+
+    function playerList(playerCount) {
+      switch (playerCount) {
+        case 2:
+          $(".player3").addClass("hidden");
+          $(".player4").addClass("hidden");
+          playerLimit = 2;
+          playerPositions = [1, 1];
+          break;
+        case 3:
+          $(".player3").removeClass("hidden");
+          $(".player4").addClass("hidden");
+          playerLimit = 3;
+          playerPositions = [1, 1, 1];
+          break;
+        case 4:
+          $(".player3").removeClass("hidden");
+          $(".player4").removeClass("hidden");
+          playerLimit = 4;
+          playerPositions = [1, 1, 1, 1];
+          break;
+        default:
+          $(".player3").addClass("hidden");
+          $(".player4").addClass("hidden");
+          playerLimit = 2;
+          playerPositions = [1, 1];
+          break;
+      }
+    }
+
+    function rollDice(player) {
+      let rollValue = Math.floor(Math.random() * 6) + 1;
+      $(".yourNumber").removeClass("hidden");
+      $(".yourNumber").text(`Your Number: ${rollValue}`);
+      startTurn(player, rollValue);
+    }
+
+    function startTurn(player, roll) {
+      let pieceLocation = container.find(`div.player${player}`).parent(),
+        oldSpace = parseInt(pieceLocation.text().replace("?", "")),
+        newSpace = oldSpace + roll;
+
+      if (newSpace % 2 == 0 || newSpace == 99) {
+        movePlayer(player, newSpace);
+        nextTurn(player);
+      } else {
+        quizPlayer(player, oldSpace, newSpace);
+      }
+    }
+
+    function movePlayer(player, newSpace) {
+      container.find(`.playerPiece`).remove();
+
+      if (newSpace >= 100) {
+        win(player);
+        return;
+      }
+
+      for (let p = 1; p <= Object.keys(playerPositions).length; p++) {
+        if (p == player) {
+          playerPositions[p - 1] = newSpace
+        }
+        for (let i = 0; i < 100; i++) {
+          newSpaceObject = container.children()[i];
+          if (container.children()[i].textContent.replace("?", "") == playerPositions[p - 1]) {
+            break;
+          }
+        }
+
+        let playerObject = document.createElement("div");
+        playerObject.classList.add("playerPiece");
+        playerObject.classList.add(`player${p}`);
+        newSpaceObject.append(playerObject);
+      }
+    }
+
+    function nextTurn(player) {
+      let newPlayer = (player + 1) > playerLimit ? 1 : player + 1;
+      $("#playGame").find("h1").text(`Player ${newPlayer}'s Turn`);
+      $("#playGame").find("button").attr("onclick", `rollDice(${newPlayer})`);
+      $(":radio").prop("checked", false)
+    }
+
+    function quizPlayer(player, oldSpace, newSpace) {
+      let categoryNumber = `Category ${Math.floor(Math.random() * (7)) + 1}`,
+        category = questions[categoryNumber],
+        questionNumber = Math.floor(Math.random() * (category.length));
+
+      if (questionsAsked.length == questionsLength) {
+        questionsAsked = [];
+      }
+
+      if (questionsAsked.indexOf([categoryNumber, questionNumber]) != -1) {
+        while (questionsAsked.indexOf([categoryNumber, questionNumber]) != -1) {
+          categoryNumber = `Category ${Math.floor(Math.random() * (7)) + 1}`;
+          category = questions[categoryNumber];
+          questionNumber = Math.floor(Math.random() * (category.length));
+        }
+      }
+
+      questionsAsked.push([categoryNumber, questionNumber]);
+
+      let categoryRow = category[questionNumber],
+        question = categoryRow.question,
+        answer = categoryRow.answer;
+
+      switch (categoryNumber) {
+        case "Category 1":
+          categoryNumber = "Names & Places"
+          break;
+
+        case "Category 2":
+          categoryNumber = "Odds & Ends"
+          break;
+
+        case "Category 3":
+          categoryNumber = "Songs"
+          break;
+
+        case "Category 4":
+          categoryNumber = "Villains"
+          break;
+
+        case "Category 5":
+          categoryNumber = "Dogs"
+          break;
+
+        case "Category 6":
+          categoryNumber = "... No Category Name"
+          break;
+
+        case "Category 7":
+          categoryNumber = "Who's That?";
+          playMP3(categoryRow.mp3);
+          break;
+
+        default:
+          break;
+      }
+
+      $("#myModal").children(".modal-content").children("h1").text(categoryNumber);
+      $("#myModal").children(".modal-content").children("h2").text(question);
+      $("#myModal").children(".modal-content").children(".revealAnswer").children("p").text(`Answer: ${answer}`);
+
+      $("#correctAnswer").off("click");
+      $("#incorrectAnswer").off("click");
+
+      $("#correctAnswer").on("click", () => {
+        checkAnswer(true, player, oldSpace, newSpace);
+      });
+      $("#incorrectAnswer").on("click", () => {
+        checkAnswer(false, player, oldSpace, newSpace);
+      });
+
+      triggerModal();
+    }
+
+    function checkAnswer(correct, player, oldSpace, newSpace) {
+      if (correct) {
+        if ($("#correct").hasClass("hidden")) {
+          $("#correct").removeClass("hidden");
+        }
+        $("#correct").text("Your Answer was Correct.");
+        closeModal();
+        movePlayer(player, newSpace);
+        nextTurn(player);
+      } else {
+        if ($("#correct").hasClass("hidden")) {
+          $("#correct").removeClass("hidden");
+        }
+        $("#correct").text("Your Answer was Incorrect.");
+        closeModal();
+        nextTurn(player);
+      }
+
+      $('.revealAnswer').addClass('hidden')
+    }
+
+    function playMP3(mp3file) {
+      new Audio(`./mp3/${mp3file}.mp3`).play();
+    }
+
+    function win(player) {
+      alert(`Player ${player} has won the game!\nThe page will now refresh to play again!`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  </script>
+</body>
+
+</html>

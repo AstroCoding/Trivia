@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>TXT -> JSON</title>
+  <style>
+    div.dotted-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    div.category1-6 {
+      border: 1px red dashed;
+    }
+
+    div.category7 {
+      border: 1px blue dashed;
+    }
+
+    div#output1,
+    div#output2 {
+      border: 1px solid black;
+      padding: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dotted-box category1-6">
+    <input type="file" id="file1" accept='text/plain'>
+    <div id='output1'>
+    </div>
+  </div>
+  <div class="dotted-box category7">
+    <input type="file" id="file2" accept='text/plain'>
+    <div id='output2'>
+    </div>
+  </div>
+
+  <script>
+    var output = [],
+      div = document.getElementById("output1");
+    document.getElementById('file1').onchange = function () {
+      var file = this.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function (progressEvent) {
+        // By lines
+        var lines = this.result.split('\n');
+        for (var line = 0; line < lines.length; line++) {
+          lines[line] = lines[line].split(" = ");
+          if (line == lines.length - 1) {
+            div.innerHTML +=
+              `{
+            question: "${lines[line][0]}",
+            answer: "${lines[line][1]}"
+            }`;
+          } else {
+            div.innerHTML +=
+              `{
+            question: "${lines[line][0]}",
+            answer: "${lines[line][1]}"
+            },`;
+          }
+        }
+      };
+      reader.readAsText(file);
+    };
+
+    document.getElementById('file2').onchange = function () {
+      var file = this.files[0];
+
+      var reader = new FileReader();
+      reader.onload = function (progressEvent) {
+        // By lines
+        var lines = this.result.split('\n');
+        for (var line = 0; line < lines.length; line++) {
+          lines[line] = lines[line].split("=");
+          if (line == lines.length - 1) {
+            document.getElementById("output2").innerHTML +=
+              `{
+            mp3: ${lines[line][0]}, question: "${lines[line][1]}", answer: "${lines[line][2]}"}`;
+          } else {
+            document.getElementById("output2").innerHTML +=
+              `{mp3: ${lines[line][0]}, question: "${lines[line][1]}", answer: "${lines[line][2]}"},`;
+          }
+        }
+      };
+      reader.readAsText(file);
+    };
+  </script>
+</body>
+
+</html>

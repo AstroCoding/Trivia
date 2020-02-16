@@ -1,0 +1,221 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "chessboard-container information"
+    "footer footer";
+  grid-template-rows: 10vh 80vh 10vh;
+  grid-template-columns: 50vw 50vw;
+  background-color: #272727;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+header {
+  grid-area: header;
+  padding: 1rem;
+  text-align: center;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+}
+
+div.chessboard-container {
+  grid-area: chessboard-container;
+  margin: 0 1vw;
+}
+
+div.information {
+  grid-area: information;
+  margin: 0 1vw;
+}
+
+div.chessboard {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  max-height: 80vh;
+  border: 5px solid grey;
+  border-radius: 1%;
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.white {
+  background-color: #fff;
+  color: black;
+  width: 100%;
+}
+
+.black {
+  background-color: black;
+  color: white;
+  width: 100%;
+}
+
+.playerPiece::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  float: left;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.playerList {
+  margin-top: 1rem;
+}
+
+.playerList>* {
+  padding: 0.25rem 0rem;
+}
+
+.playerList>.playerPiece::before {
+  width: 15px;
+  height: 15px;
+  margin-right: 0.25rem;
+}
+
+.player1::before {
+  background-color: red;
+}
+
+.player2::before {
+  background-color: cyan;
+}
+
+.player3:before {
+  background-color: yellow;
+}
+
+.player4::before {
+  background-color: green;
+}
+
+.hidden {
+  display: none;
+}
+
+#playGame {
+  width: max-content;
+  margin: 1rem 0rem;
+  justify-content: center;
+  text-align: center;
+}
+
+#playGame>* {
+  margin: 0.25rem 0rem;
+}
+
+#playGame>button,
+button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 1rem;
+  transition: 0.2s;
+  font-size: 120%;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+#playGame>button:hover,
+button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+#correctAnswer,
+#incorrectAnswer,
+#revealAnswer {
+  margin-top: 0.5rem;
+  color: white;
+  background-color: rgb(39, 39, 39);
+}
+
+#correctAnswer:hover,
+#incorrectAnswer:hover,
+#revealAnswer:hover {
+  background-color: rgb(54, 54, 54);
+}
+
+.revealAnswer {
+  width: 75%;
+}
+
+.revealAnswer>p {
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+footer {
+  grid-area: footer;
+  height: 100%;
+}
+
+form {
+  margin-top: 1rem;
+}
+
+input[type="number"] {
+  padding: 0.25rem 0rem 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+output {
+  padding-left: 1rem;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  color: #272727;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
