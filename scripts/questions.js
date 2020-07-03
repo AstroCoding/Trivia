@@ -1,92 +1,92 @@
 var questions = {
-  "Disney Dogs": [
+  "Category 1": [
     {
       question: "Name Mickey’s pet dog",
-      answer: "Pluto "
+      answer: "Pluto"
     }, {
         question: "Which dog is mickey’s friend that walks on two legs?",
-        answer: "Goofy "
+        answer: "Goofy"
     }, {
         question: "What was the name of the puppy in the Fox and the Hound?",
-        answer: "Copper "
+        answer: "Copper"
     }, {
         question: "His name was Percy which movie was he from?",
-        answer: "Pocahontas "
+        answer: "Pocahontas"
     }, {
         question: "Jock was what breed of Dog?",
-        answer: "Scottish Terrier "
+        answer: "Scottish Terrier"
     }, {
         question: "Trusty a hound dog what was his job?",
-        answer: "Tracking criminals through the swamps of Louisiana "
+        answer: "Tracking criminals through the swamps of Louisiana"
     }, {
         question: "Peridta’s mate is named?",
-        answer: "Pongo "
+        answer: "Pongo"
     }, {
         question: "What dog believes he hs super popwers",
-        answer: "BOLT "
+        answer: "BOLT"
     }, {
         question: "Name the cat who joined a bunch of New York Dogs",
-        answer: "Oliver "
+        answer: "Oliver"
     }, {
         question: "Francis in Oliver and company is what kind of Dog?",
-        answer: "Bulldog "
+        answer: "Bulldog"
     }, {
         question: "Who is Todds best friend?",
-        answer: "Copper "
+        answer: "Copper"
     }, {
         question: "What kind of dog is Mel in the secret life of pets?",
-        answer: "Pug "
+        answer: "Pug"
     }, {
         question: "What was the name of the Jack Russsell terrier in the Secret Life of pets",
-        answer: "Max "
+        answer: "Max"
     }, {
         question: "This animal was not a not a dog but went for a boat cruise in Moana",
-        answer: "Rooster Chicken "
+        answer: "Rooster Chicken"
     }, {
         question: "What was the name of Prinec Eric’s dog in the Little Mermaid?",
-        answer: "Max "
+        answer: "Max"
     }, {
         question: "What kind of Dog was Napolean from the Aristocats?",
-        answer: "Bloodhound "
+        answer: "Bloodhound"
     }, {
         question: "What kind of dog was Lafayette?",
-        answer: "A Basset Hound "
+        answer: "A Basset Hound"
     }, {
         question: "what was the job of Napolean ?",
-        answer: "Guard dogs on the farm "
+        answer: "Guard dogs on the farm"
     }, {
         question: "What was the name of the dog in Beauty and the Beast?",
-        answer: "Sultan "
+        answer: "Sultan"
     }, {
         question: "What was the name of the dog in the Great mouse detective?",
-        answer: "Toby "
+        answer: "Toby"
     }, {
         question: "What was the name of the elderly Irish Wolfhound in the Fox and the Hound?",
-        answer: "Chief "
+        answer: "Chief"
     }, {
         question: "Which dog expresses himself thorugh a special high-tech translating collar?",
-        answer: "Dug from UP "
+        answer: "Dug from UP"
     }, {
         question: "The name of The wealthy and slightly spoiled poodle of Oliver and Company?",
-        answer: "Georgette "
+        answer: "Georgette"
     }, {
         question: "The name of the dog in who fell in love with a tramp?",
-        answer: "Lady "
+        answer: "Lady"
     }, {
-        question: "Lucky is what from which movie? ",
-        answer: "A puppy from 101 Dalmations "
+        question: "Lucky is what from which movie?",
+        answer: "A puppy from 101 Dalmations"
     }, {
         question: "Though not a real dog he is a dog thats long and wirey?",
-        answer: "Slink from Toy Story "
+        answer: "Slink from Toy Story"
     }, {
         question: "Though not a dog this character was introduced by his “mistress” as her dog?",
-        answer: "Stich "
+        answer: "Stich"
     }, {
         question: "What was the name of Cindereallas dog?",
         answer: "Bruno"
     }
   ],
-  "Names and Places": [
+  "Category 2": [
       {
           question: "What is the name of the country Prince Naveen (Disneys's The Frog and the Prince) from?",
           answer: "Maldonia"
@@ -293,7 +293,7 @@ var questions = {
           answer: "Mulan"
       }
   ],
-  "Odds & Ends": [
+  "Category 4": [
       {
           question: "Which organization do Bernard and Miss Bianca work for in “The Rescuers”?",
           answer: "The Rescue Aid Society"
@@ -479,7 +479,7 @@ var questions = {
           answer: "Beriloz"
       }
   ], 
-  "Songs": [
+  "Category 5": [
       {
           question: "Finish the lyrics to this song from 'The Little Mermaid': 'Wouldn’t you think I’m the girl, the girl who has everything? Look at this trove, treasures untold...'",
           answer: "'How many wonders can one cavern hold?'"
@@ -563,7 +563,7 @@ var questions = {
           answer: "Queen of Hearts, Alice in Wonderland"
       }
   ],
-  "Villains": [
+  "Category 6": [
       {
           question: "In which animated feature would you find a villain named Sykes?",
           answer: "Oliver and Cmpany"
@@ -614,7 +614,7 @@ var questions = {
           answer: "A Python / Snake"
       }
   ],
-  "Sound Clips!": [{
+  "Category 7": [{
     mp3: 1,
     question: " question1 ",
     answer: " answer1 "
