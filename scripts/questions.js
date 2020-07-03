@@ -293,7 +293,7 @@ var questions = {
           answer: "Mulan"
       }
   ],
-  "Category 4": [
+  "Category 3": [
       {
           question: "Which organization do Bernard and Miss Bianca work for in “The Rescuers”?",
           answer: "The Rescue Aid Society"
@@ -479,7 +479,7 @@ var questions = {
           answer: "Beriloz"
       }
   ], 
-  "Category 5": [
+  "Category 4": [
       {
           question: "Finish the lyrics to this song from 'The Little Mermaid': 'Wouldn’t you think I’m the girl, the girl who has everything? Look at this trove, treasures untold...'",
           answer: "'How many wonders can one cavern hold?'"
@@ -563,7 +563,7 @@ var questions = {
           answer: "Queen of Hearts, Alice in Wonderland"
       }
   ],
-  "Category 6": [
+  "Category 5": [
       {
           question: "In which animated feature would you find a villain named Sykes?",
           answer: "Oliver and Cmpany"
@@ -614,7 +614,7 @@ var questions = {
           answer: "A Python / Snake"
       }
   ],
-  "Category 7": [{
+  "Category 6": [{
     mp3: 1,
     question: " question1 ",
     answer: " answer1 "
