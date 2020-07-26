@@ -71,7 +71,8 @@
       playerPositions = [1, 1],
       questionsLength = 0,
       questionsAsked = [];
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i <= 5; i++) {
+      if (i == 6) break;
       let categoryNumber = `Category ${i}`,
         category = questions[categoryNumber],
         length = category.length;
